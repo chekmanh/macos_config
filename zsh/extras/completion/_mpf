@@ -1,0 +1,11 @@
+#compdef mpf
+
+DIR=$HOME/Movies
+function _mpf() {
+ _arguments '1:serie name:->series'
+ case $state in
+   series)
+     compadd $(ls $DIR)
+     ;;
+ esac
+}

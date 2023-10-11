@@ -1,0 +1,67 @@
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Sat 12 Oct 2019 05:18:18 PM CEST
+
+# source XDG_DIRS
+while read i; do
+  if [[ $i =~ ^XDG ]]; then
+    eval export $i
+  fi
+done <~/.config/user-dirs.dirs
+
+# put mine first to override the originals
+export PATH="$(du "$HOME/.local/bin" | cut -f2 | tr '\n' ':' | sed 's/:$//'):$PATH"
+export PYTHONPATH="/Users/chek-manh/Documents/Arbeit/Vrp/:$PYTHONPATH"
+
+export HISTIGNORE='rmview:stretch:newsboat:vl:vc:vx:vt:bt:bt *:r:wlan_o*:vpn*:qq:cb:pQ:pS:vpns:bl *:bl:cal:vims:a:aa:htop:g pl:g pu:rehash:make:lsblk:w:xrandr:lf:sdcv:pingt:nmtui:tmux:tmux ls:limit_internet*:sdn:f *:f.:ls:~:..:v:s_*:l:gs:bg:jobs:fg:la::q:1:2:yt*:learn:alarm *:nm_*:str *:myip:manga-dl *:mpf *:sshu:d'
+# // global substitution
+export HISTORY_IGNORE="(${HISTIGNORE//:/|})"
+
+export LC_ALL=en_US.UTF-8
+
+# useful
+export EDITOR="vim"
+export TERMINAL="st"
+export BROWSER="firefox"
+# export BROWSER="safari"
+export READER="zathura"
+export FILEVIEWER="vifm"
+export MUSIC="mpv"
+
+# use neo vim as man
+export MANPAGER="nvim +Man! -c 'set ft=man' -"
+# export MANPAGER='vim +Man!'
+
+# macos color
+export CLICOLOR=1
+
+# time commands over x seconds
+export REPORTTIME=1
+
+# fzf 
+export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_COMPLETION_TRIGGER='**'
+
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/imports.py"
+
+# custom completion
+export FPATH=$FPATH:$HOME/.config/zsh/extras/completion/
+
+# clean up
+# vim
+export MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+export VIM="$XDG_CONFIG_HOME/vim/"
+# export VIMINIT=":source $XDG_CONFIG_HOME/vim/vimrc"
+export VIFM="$XDG_CONFIG_HOME/vifm/vifmrc"
+# zsh and bash in one
+export HISTCONTROL=ignoreboth:erasedups
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export HISTFILESIZE=1000000
+export HISTFILE="$XDG_DATA_HOME/zsh/zsh_history"
+export TEST="$XDG_DATA_HOME/zsh/zsh_history"
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+
+export LESSHISTFILE="$XDG_CACHE_HOME/lesshst"
+
+# vim:ft=bash

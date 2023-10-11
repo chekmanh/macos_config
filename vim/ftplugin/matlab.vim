@@ -1,0 +1,2 @@
+" comment
+let b:commentchar='% '

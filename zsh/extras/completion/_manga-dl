@@ -1,0 +1,14 @@
+#compdef manga-dl
+
+DIR=$HOME/dl/manga/
+function _manga-dl() {
+ _arguments '1:manga name:->mangas' '2:chapter num:->chapters'
+ case $state in
+   mangas)
+     compadd $(ls $DIR)
+     ;;
+   chapters)
+     compadd $(cat $DIR/$words[2]/.$words[2])
+     ;;
+ esac
+}

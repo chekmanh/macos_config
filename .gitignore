@@ -1,0 +1,16 @@
+.DS_Store
+gtk-2.0/
+mpv/watch_later/
+user-dirs.dirs
+vifm/vifminfo.json
+vim/autoload/
+vim/plugged/.DS_Store
+vim/plugged/YouCompleteMe/
+vim/plugged/fzf.vim/
+vim/plugged/fzf/
+vim/plugged/rainbow/
+vim/plugged/undotree/
+vim/plugged/vimtex/
+zsh/.zcompdump
+zsh/.zsh_sessions/
+zsh/extras/plugins/

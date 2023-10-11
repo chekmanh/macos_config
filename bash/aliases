@@ -1,0 +1,238 @@
+#!/bin/bash
+# Mon 14 Oct 2019 08:37:30 PM CEST
+
+function vp {
+    FILE=$( /opt/homebrew/bin/fd -t f -d 2 '.cpp$' /home/chelz/doc/Studium/09_Semester/Master/code/ -E 'test_package' -E 'example' -E 'src' | fzf -m )
+    [[ $FILE ]] || return
+    cd $(dirname $FILE)/build
+    st -e loopexec "./ivarp_ia_""$(basename $FILE .cpp)" &!
+    vim "$FILE"
+}
+
+function vc {
+    FILE=$({ /opt/homebrew/bin/fd -t f "." ~/.config -E 'zsh/extras' -E 'vim/plugged' -E 'GeoGebra' -E 'david' ; echo "$HOME/.config/zsh/.zsh_history" } | fzf -m )
+    [[ $FILE ]] && vim "$FILE"
+}
+
+function vx {
+    FILE=$({ /opt/homebrew/bin/fd -t x "." ~/.local/bin  ; /opt/homebrew/bin/fd -t x "." ~/.local/shortcuts ; } | fzf -m )
+    [[ $FILE ]] && vim $FILE
+}
+
+function vt {
+    # FOLDER=$HOME/doc/Studium/09_Semester/Master/tex
+    # FILE=$FOLDER/master.tex
+    # cd $FOLDER
+    # vim --servername vim -c "silent VimtexCompile" -c "silent call SynctexView()" $FILE
+    # return
+
+    FILE=$({ cat ~/.local/share/fzf/latex_projects ; echo "/home/chelz/.local/share/fzf/latex_projects" ; } | fzf -m )
+
+    if [[ $FILE =~ "latex_projects" ]]; then
+        vim "$FILE"
+    elif [[ $FILE ]]; then
+        vim --servername vim -c "silent VimtexCompile" -c "silent call SynctexView()" "$FILE"
+    fi
+    cd $(dirname $FILE)
+}
+
+
+function f {
+    dst="$(command vifm --choose-dir - "$@")"
+    [[ $dst ]] && echo $dst > ~/.local/share/vifm/directory
+    [[ $dst ]] && cd "$(echo $dst | head -n1)"
+}
+alias f.="f ."
+
+function d {
+    cd "$(cat ~/.local/share/vifm/directory)"
+}
+
+function pip_update {
+    for i in $(pip list -o | awk 'NR > 2 {print $1}'); do pip install -U $i; done
+}
+
+function vl {
+    vim -c "normal! "
+}
+
+function qq {
+    [[ $? -eq 0 ]] && exit || notify-send "error"
+}
+
+function cb {
+    . ~/.local/shortcuts/alias/cdb
+}
+
+function vs {
+    i=$(/opt/homebrew/bin/fd . -I -t f ~/.local/share/vim/sessions | fzf -1); [[ $i ]] && vim -S $i
+}
+
+function wlan_off {
+    sudo systemctl stop NetworkManager.service && sudo rfkill block wlan
+}
+
+function wlan_on {
+    sudo systemctl start NetworkManager.service && sudo rfkill unblock wlan
+}
+
+function base64d {
+    i=$1
+    while :;do
+        t=$(echo "$i" | base64 -d)
+        echo $t | xclip -selection clipboard
+        echo $t
+        echo "$t" | base64 -d
+        echo -e "\nnext?"
+        read i
+    done
+}
+
+
+# diskusage of files/dir
+function duf {
+    /usr/bin/du -sh * "$@"
+}
+
+function dud {
+    /usr/bin/du -d 1 -h "$@"
+}
+
+function pQ {
+    /usr/bin/pacman -Q | fzf -m --preview 'pacman -Si {1}'
+}
+function pS {
+    /usr/bin/pacman -Sl | fzf -m --preview 'pacman -Si {2}'
+}
+
+function gs {
+    /usr/bin/git status "$@"
+}
+
+# notify cellphone of something important happens
+function a {
+    notify-send --urgency=low "$([[ $? = 0 ]] && echo + || echo -) $(history | tail -n 1 | /usr/bin/sed -e 's/^\s*[0-9]\+\s*//')"
+}
+
+function aa {
+    RES="$([[ $? -eq 0 ]] && echo + || echo -) $(history | tail -n 1 | /usr/bin/sed -e 's/^\s*[0-9]\+\s*//')" ;notify-send "$RES" ; s_self "$RES"
+}
+
+function aaa {
+    RES="$([[ $? -eq 0 ]] && echo + || echo -) $(history | tail -n 1 | /usr/bin/sed -e 's/^\s*[0-9]\+\s*//')" 
+    notify-send -u critical "$RES" 
+    s_self "$RES"
+    mpv --volume=70 ~/music/*
+}
+
+function greppdf {
+    [[ $# -eq 1 ]] || exit 1
+    find . -type f -name '*.pdf' -exec sh -c "pdftotext \"{}\" - | pcregrep -M -i --with-filename --label=\"{}\" --color -e \"$@\"" \;
+}
+
+# inspired by vifm
+function mkcd {
+    if [[ $# -ne 1 ]];then
+        echo "what?" 
+        return 1
+    fi
+    mkdir $1 && cd $1
+}
+
+function alarm {
+    /bin/date +'%a %d-%b-%Y %T'
+    sleep $(echo "$1 * 60" | bc)
+    notify-send "alarm"
+    alert
+}
+
+function learn {
+    i=0
+    d=$(/bin/date +"%d")
+    while :;do
+        t=$(/bin/date +"%d")
+        [[ $d == $t ]] || { d=$t ; clear ; echo $i; i=0 }
+        i=$((i+1))
+        echo "\n>>>> iteration $i <<<<\n\n"
+        /bin/date +'%a %d-%b-%Y %R'
+        echo "learn 40m"
+        sleep 2400
+        /bin/date +'%a %d-%b-%Y %R'
+        echo "pause 20m"
+        notify-send "Pause"
+        sleep 1200
+        /bin/date +'%a %d-%b-%Y %R'
+        echo "start again?"
+        notify-send "start_again?"
+    done
+}
+
+function xev_key {
+    xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }'
+}
+
+# aliases influence functions
+
+alias jupyternb="jupyter notebook &!"
+
+
+alias myip='curl -s ipinfo.io/$(curl -s ifconfig.me) | head -n -2 | tail -n +2'
+# alias myip='curl -s ifconfig.co/json'
+
+alias pingt="/usr/bin/ping -c 1 1.1.1.1"
+
+
+alias pdfpc="/usr/bin/pdfpc -g -w both"
+
+alias make="/usr/bin/make -j "$(sysctl -n hw.physicalcpu)""
+alias xclip="/usr/bin/xclip -selection clipboard"
+
+alias fd="/opt/homebrew/bin/fd -I"
+alias grep='/usr/bin/grep --color --exclude-dir={.bzr,CVS,.git,.hg,.svn} -nisI'
+alias pcregrep='/usr/bin/pcregrep --color --exclude-dir={.bzr,CVS,.git,.hg,.svn} -n -i'
+alias sedp='perl -0777 -pe'
+
+alias q="exit"
+alias g="/usr/bin/git"
+alias ls="/bin/ls --color=auto -F"
+alias l="ls -lh";
+alias la="l -A"
+
+alias ka="/usr/bin/killall"
+
+alias timev="/usr/bin/time"
+
+alias mv="/bin/mv -iv"
+alias cp="/bin/cp -iv"
+
+alias vpns="vpn status"
+
+# clean home dir
+alias wget='/usr/bin/wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'
+alias startx="/usr/bin/startx ~/.config/X11/xinitrc"
+
+
+alias sdn="/usr/bin/shutdown now"
+
+# lang be,en
+alias yt-dlp4="yt-dlp -ic --write-sub --sub-langs "en,de" --write-auto-subs -f 'best'"
+alias yt-dlp4="yt-dlp -ic --write-sub --sub-langs "en,de" --write-auto-subs -f '137+251/137+140/137+250/248+251/248+140/248+250/399+251/399+140/399+250/22/best'"
+alias yt-dlp3="yt-dlp -ic -x -f bestaudio/best"
+alias yt4="youtube-dl -ic --write-sub --sub-lang en,de --write-auto-sub -o '%(title)s.%(ext)s' -f '137+251/137+140/137+250/248+251/248+140/248+250/399+251/399+140/399+250/22/best'"
+alias yt3="youtube-dl -ic -o '%(title)s.%(ext)s' -x -f bestaudio/best"
+
+# discord is retarded
+alias pgrep="pgrep -i"
+
+alias date="/bin/date +'%a %d-%b-%Y %T'"
+
+alias rmview="rmview ~/.config/rmview/rmview.json"
+
+alias sshu="ssh loi@jump.ibr.cs.tu-bs.de"
+alias finder="open /System/Library/CoreServices/Finder.app"
+
+alias latex_install="sudo tlmgr install"
+
+alias rm="trash"
+
+# vim:set nospell:

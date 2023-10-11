@@ -1,0 +1,87 @@
+# set page-padding 5
+
+map u scroll half-up
+map d scroll half-down
+map D toggle_page_mode
+map r reload
+map R rotate
+map i recolor
+map p scroll page-up
+map w adjust_window width
+unmap <Fn>
+
+map ^ jumplist backward
+
+map <Down> scroll down
+map <Up> scroll up
+map <Right> navigate next
+map <Left> navigate previous
+map H scroll left
+map J navigate next
+map K navigate previous
+map L scroll right
+map h navigate previous
+map j scroll down
+map k scroll up
+map l navigate next
+map <Space> navigate next
+map <Return> navigate next
+
+map Y navigate next
+map X navigate previous
+map y scroll down
+map x scroll up
+
+map <Button9> navigate next
+map <Button8> navigate previous
+
+map [presentation] h navigate previous
+map [presentation] j navigate next
+map [presentation] k navigate previous
+map [presentation] l navigate next
+map [presentation] g goto top
+map [presentation] G goto bottom
+map [presentation] f follow
+map [presentation] <Space> navigate next
+map [presentation] <Button9> navigate next
+map [presentation] <Button8> navigate previous
+
+map [presentation] y navigate next
+map [presentation] x navigate previous
+
+map [fullscreen] h navigate previous
+map [fullscreen] j navigate next
+map [fullscreen] k navigate previous
+map [fullscreen] l navigate next
+map [fullscreen] g goto top
+map [fullscreen] G goto bottom
+map [fullscreen] f follow
+map [fullscreen] <Space> navigate next
+map [fullscreen] t toggle_statusbar
+map [fullscreen] <Button9> navigate next
+map [fullscreen] <Button8> navigate previous
+
+map [fullscreen] y navigate next
+map [fullscreen] x navigate previous
+
+map t toggle_statusbar
+
+# hide statusbar on startup
+# set guioptions none
+
+# set selection-notification false
+
+# disrupts valid searches
+# set incremental-search
+
+# set abort-clear-search true
+
+set statusbar-basename
+set window-title-basename
+set scroll-step 60
+set font "monospace normal 12"
+
+set selection-clipboard clipboard
+set first-page-column 1:1
+
+# vim:set nospell:

@@ -1,0 +1,27 @@
+" Fri 04 Oct 2019 06:09:41 AM UTC
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:my_vim_folder=expand(fnamemodify(resolve(expand('$MYVIMRC')), ':p:h')) . "/"
+
+
+" source files
+function s:source_local_file(fname)
+    exe 'source ' . g:my_vim_folder . a:fname
+endfunction
+
+" plugins
+call s:source_local_file('plugin.vim')
+" settings
+call s:source_local_file('setting.vim')
+" common abbreviations
+call s:source_local_file('abbreviate.vim')
+" convenient mappings
+call s:source_local_file('mapping.vim')
+" commands
+call s:source_local_file('command.vim')
+" let global variables
+call s:source_local_file('variable.vim')
+" auto commands
+call s:source_local_file('autocommand.vim')
+" extra sausages
+call s:source_local_file('extra.vim')

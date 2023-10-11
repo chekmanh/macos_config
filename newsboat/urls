@@ -1,0 +1,47 @@
+---------------------------
+----------Anime------------
+---------------------------
+file:///Users/chek-manh/.local/share/newsboat/anime.rss "~Anime"
+---------------------------
+-----------News------------
+---------------------------
+https://xkcd.com/atom.xml
+
+---------------------------
+---------Youtube-----------
+---------------------------
+
+https://www.youtube.com/feeds/videos.xml?channel_id=UCoxcjq-8xIDTYp3uz647V5A "~Numberphile" "yteng" "!hidden"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC9-y-6csu5WGm29I7JiwpnA "~Computerphile" "yteng" "!hidden"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCHnyfMqiRRG1u-2MsSQLbXA "~Veritasium" "yteng" "!hidden"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCAuUUnT6oDeKwE6v1NGQxug "~Ted" "yteng" "!hidden"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCsooa4yRKGN_zEE8iknghZA "~Ted-ed" "yteng" "!hidden"
+
+https://www.youtube.com/feeds/videos.xml?channel_id=UC5kzvUz4ff_nmds40SIVBDg "~Down to Earth Chinese" "ytch" "!hidden"
+"query:English:tags =~ \"yteng\""
+"query:中文:tags =~ \"ytch\""
+
+# ---------------------------
+# ----------Reddit-----------
+# ---------------------------
+#  
+https://www.reddit.com/r/archlinux.rss "~r/archlinux"
+https://www.reddit.com/r/RemarkableTablet.rss "~r/Remarkable"
+# 
+# ---------------------------
+# --------Archlinux----------
+# ---------------------------
+https://www.archlinux.org/feeds/news/
+
+# ---------------------------
+# -----------Git-------------
+# ---------------------------
+https://github.com/TeamNewPipe/NewPipe/commits/dev.atom
+# https://github.com/bordaigorl/rmview/commits/vnc.atom
+
+# ---------------------------
+# ----------Stack------------
+# ---------------------------
+https://stackoverflow.com/feeds/tag?tagnames=vim&sort=newest
+
+# vim:set nospell:

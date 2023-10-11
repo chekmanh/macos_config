@@ -1,0 +1,19 @@
+# Sat 12 Oct 2019 05:17:38 PM CEST
+
+# bash history
+set -o vi
+
+shopt -s extglob
+shopt -s dirspell
+# append to the history file, don't overwrite it
+shopt -s histappend
+shopt -s autocd
+shopt -s cdspell
+shopt -s dotglob
+#shopt -s checkwinsize
+
+if [[ -f ~/.config/bash/aliases ]]; then
+  . ~/.config/bash/aliases
+fi
+
+stty -ixon

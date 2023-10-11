@@ -1,0 +1,65 @@
+" execute 'source ' . expand('$MYVIMRC')
+" 
+source ~/.config/vim/vimrc
+" "" do not know how to use Ex mode mode
+nnoremap Q <nop>
+
+"" keep find in middle
+nnoremap n nzz
+nnoremap N Nzz
+
+"" set very magic not possible, also break plugins
+nnoremap / /\v
+vnoremap / /\v
+nnoremap ? ?\v
+vnoremap ? ?\v
+cnoremap s/ s/\v
+cnoremap g/ g/\v
+
+"" faster movement
+noremap <down> }
+noremap <up> {
+
+"" buffer switch
+nnoremap <space><tab> :bn<cr>
+
+"" Move within wrapped lines
+vnoremap j gj
+nnoremap j gj
+vnoremap k gk
+nnoremap k gk
+vnoremap gj j
+nnoremap gj j
+vnoremap gk k
+nnoremap gk k
+
+"" undo highlight
+nnoremap <space>n :nohl<cr>
+
+nnoremap <space><space> <c-]>
+
+" remove brackets in a repeatable way
+nnoremap d" di"va"p
+nnoremap d' di'va'p
+nnoremap d( di(va(p
+nnoremap d[ di[va[p
+nnoremap d{ di{va{p
+
+"" f/t char
+noremap - ;
+
+"" faster line end
+nnoremap ; A;<esc>
+
+"" save and quit
+nnoremap <space>w :w<cr>
+nnoremap <space>Q :wq<cr>
+nnoremap <space>q :q<cr>
+cnoremap Q!<cr> q!<cr>
+cnoremap Qa<cr> qa<cr>
+"
+"" never used
+inoremap jk <esc>
+" Sat 21 Sep 2019 01:27:03 PM UTC
+
+inoremap ci= <esc>F=lc$;<left><space>
